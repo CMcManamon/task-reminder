@@ -1,6 +1,8 @@
 # task-reminder
 This is a MERN stack web application that managers users' tasks. Unlike other task managers, this app is not calendar-based. The use case for this app is tasks which have no specific deadline and/or are recurring events, for example vacuuming the house, or washing the dog, or getting a yearly furnace inspection. You will simply indicate when the task should begin (today, tomorrow, next week, etc.), how often it should recur, and optionally a priority level. The app will move overdue and immediate tasks to the top of the list, but will not spam you with notifications. When you find yourself with some free time, open the app and check if you have any tasks to do.
 
+[Visit the wiki for user stories and mockups](https://github.com/CMcManamon/task-reminder/wiki)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
