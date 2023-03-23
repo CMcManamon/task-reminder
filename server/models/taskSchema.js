@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const taskSchema = mongoose.Schema({
   title: String,
   comment: String,
-  startedAt: {
+  dueDate: {
     type: Date,
     default: new Date(),
   },
