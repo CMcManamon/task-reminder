@@ -1,10 +1,12 @@
 import "./App.css";
 import ListView from "./components/ListView/ListView";
+import NewTaskView from "./components/NewTaskView/NewTaskView";
 
 function App() {
   return (
     <div className="App">
-      <ListView tasks={TASKS} />
+      {/*     <ListView tasks={TASKS} /> */}
+      <NewTaskView />
     </div>
   );
 }

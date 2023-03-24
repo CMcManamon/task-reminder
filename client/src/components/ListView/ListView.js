@@ -5,7 +5,7 @@ const ListView = (props) => {
   const { tasks } = props;
   return (
     <div className={ListView}>
-      <NavBar />
+      <NavBar left={"LeftBtn"} center={"ListView NavBar"} right={"RightBtn"} />
       <Tasks tasks={tasks}></Tasks>
     </div>
   );
