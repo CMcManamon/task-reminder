@@ -1,11 +1,20 @@
 import NavBar from "../NavBar/NavBar";
 import { useState } from "react";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const NewTaskView = () => {
   const [customNumInput, setCustomNumInput] = useState("1");
   const [repeatNumInput, setRepeatNumInput] = useState("1");
   const handleSubmit = (event) => {
     event.preventDefault();
+  };
+
+  const [startDate, setStartDate] = useState("today");
+
+  const handleStartToggleChange = (event, newStartDate) => {
+    if (newStartDate !== null) setStartDate(newStartDate);
   };
 
   // ToDo: make sure these are validated server side
@@ -22,20 +31,27 @@ const NewTaskView = () => {
   };
 
   return (
-    <div className="NewClassView">
-      <NavBar left={""} center={"New Task"} right={"XBtn"} />
+    <div className="NewTaskView">
       <form onSubmit={handleSubmit}>
         What's the task?
         <br />
         <input type="text" />
         <br />
         When do you want to start?
+        <ToggleButtonGroup
+          color="primary"
+          value={startDate}
+          exclusive
+          onChange={handleStartToggleChange}
+          aria-label="Platform"
+        >
+          <ToggleButton value="today">Today</ToggleButton>
+          <ToggleButton value="tomorrow">Tomorrow</ToggleButton>
+          <ToggleButton value="nextWeek">Next Week</ToggleButton>
+          <br />
+          <ToggleButton value="custom">Custom</ToggleButton>
+        </ToggleButtonGroup>
         <br />
-        <button type="button">Today</button>
-        <button type="button">Tomorrow</button>
-        <button type="button">Next Week</button>
-        <br />
-        <button type="button">Custom</button>
         <input
           type="text"
           name="customNumber"

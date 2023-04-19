@@ -4,8 +4,7 @@ import Tasks from "./Tasks/Tasks";
 const ListView = (props) => {
   const { tasks } = props;
   return (
-    <div className={ListView}>
-      <NavBar left={"LeftBtn"} center={"ListView NavBar"} right={"RightBtn"} />
+    <div className="ListView">
       <Tasks tasks={tasks}></Tasks>
     </div>
   );

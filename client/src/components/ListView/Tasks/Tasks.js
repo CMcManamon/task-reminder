@@ -5,7 +5,9 @@ const Tasks = (props) => {
 
   let rows = [];
   tasks.forEach((task) => {
-    rows.push(<Task title={task.title} dueDate={task.dueDate}></Task>);
+    rows.push(
+      <Task key={task.title} title={task.title} dueDate={task.dueDate}></Task>
+    );
   });
   return <div className={Tasks}>{rows}</div>;
 };

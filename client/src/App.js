@@ -5,8 +5,8 @@ import NewTaskView from "./components/NewTaskView/NewTaskView";
 function App() {
   return (
     <div className="App">
-      {/*     <ListView tasks={TASKS} /> */}
       <NewTaskView />
+      <ListView tasks={TASKS} />
     </div>
   );
 }
