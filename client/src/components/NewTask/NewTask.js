@@ -1,4 +1,3 @@
-import NavBar from "../NavBar/NavBar";
 import { useState } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -31,7 +30,7 @@ const NewTaskView = () => {
   };
 
   return (
-    <div className="NewTaskView">
+    <div className="NewTask">
       <form onSubmit={handleSubmit}>
         What's the task?
         <br />

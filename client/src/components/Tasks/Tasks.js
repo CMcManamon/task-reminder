@@ -1,4 +1,5 @@
 import Task from "./Task/Task";
+import { Stack } from "@mui/material";
 
 const Tasks = (props) => {
   const { tasks } = props;
@@ -9,6 +10,6 @@ const Tasks = (props) => {
       <Task key={task.title} title={task.title} dueDate={task.dueDate}></Task>
     );
   });
-  return <div className={Tasks}>{rows}</div>;
+  return <Stack spacing={1}>{rows}</Stack>;
 };
 export default Tasks;
