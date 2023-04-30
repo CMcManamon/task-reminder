@@ -8,11 +8,10 @@ import taskRoutes from "./routes/tasks.js";
 const app = express();
 dotenv.config();
 
-app.use("/tasks", taskRoutes);
-
 app.use(bodyParser.json({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+app.use("/tasks", taskRoutes);
 
 const PORT = process.env.PORT || 5000;
 

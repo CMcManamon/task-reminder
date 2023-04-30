@@ -1,9 +1,18 @@
+import React, { useEffect } from "react";
 import "./App.css";
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
 import { Container, AppBar, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { getTasks } from "./actions/tasks";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getTasks());
+  }, [dispatch]);
+
   return (
     <Container maxWidth="md">
       <AppBar position="static" color="inherit">
