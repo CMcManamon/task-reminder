@@ -3,11 +3,15 @@ import mongoose from "mongoose";
 const taskSchema = mongoose.Schema({
   title: String,
   comment: String,
+  creationDate: {
+    type: Date,
+    default: new Date(),
+  },
   dueDate: {
     type: Date,
     default: new Date(),
   },
-  duration: {
+  period: {
     type: Number,
     default: 7,
   },
