@@ -22,4 +22,5 @@ const taskSchema = mongoose.Schema({
   },
 });
 
-export default taskSchema;
+const TaskMessage = mongoose.model("TaskMessage", taskSchema);
+export default TaskMessage;

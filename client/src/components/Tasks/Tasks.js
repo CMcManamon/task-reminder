@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { Stack } from "@mui/material";
 
 const Tasks = (props) => {
-  const { tasks } = useSelector((state) => state.tasks);
-
+  const tasks = useSelector((state) => state.tasks);
+  console.log(tasks);
   let rows = [];
   if (tasks === undefined) return "";
   tasks.forEach((task) => {

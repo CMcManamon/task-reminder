@@ -1,7 +1,7 @@
 const Task = (props) => {
   const { title, dueDate } = props;
   return (
-    <div className={Task}>
+    <div>
       Task: {title} <br />
       Due: {dueDate}
     </div>

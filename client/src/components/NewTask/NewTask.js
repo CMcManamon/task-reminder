@@ -57,6 +57,7 @@ const NewTaskView = () => {
     return {
       title: formData.title,
       comment: formData.comment,
+      creationDate: new Date(),
       dueDate: dueDate,
       period: formData.period,
       recurring: formData.recurring,
@@ -199,7 +200,7 @@ const NewTaskView = () => {
         />
         <br />
         <Button
-          variant="container"
+          variant="contained"
           color="primary"
           size="large"
           type="submit"

@@ -21,7 +21,7 @@ function App() {
         </Typography>
       </AppBar>
       <NewTask />
-      <Tasks tasks={TASKS} />
+      <Tasks />
     </Container>
   );
 }
