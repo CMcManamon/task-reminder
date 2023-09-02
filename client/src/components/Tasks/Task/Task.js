@@ -6,9 +6,12 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useDispatch } from "react-redux";
+import { deleteTask } from "../../../actions/tasks";
 
 const Task = (props) => {
   const { task } = props;
+  const dispatch = useDispatch();
   return (
     <Card>
       <CardContent>
@@ -19,8 +22,15 @@ const Task = (props) => {
         <Typography>{task.dueDate}</Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            dispatch(deleteTask(task._id));
+          }}
+        >
           <DeleteIcon fontSize="small" />
+          Delete
         </Button>
       </CardActions>
     </Card>

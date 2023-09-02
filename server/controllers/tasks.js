@@ -1,10 +1,10 @@
+import mongoose from "mongoose";
 import TaskMessage from "../models/taskSchema.js";
 
 export const getTasks = async (req, res) => {
   try {
     // ToDo: How to identify current user to pass in userID? Custom Hook?
     const tasks = await TaskMessage.find();
-    console.log(tasks);
     res.status(200).json(tasks);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -21,6 +21,17 @@ export const createTask = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
+};
+
+export const deleteTask = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send("No task with that id");
+
+  await TaskMessage.findByIdAndRemove(id);
+
+  res.json({ message: "Task deleted successfully" });
 };
 
 /*
