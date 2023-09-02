@@ -187,6 +187,10 @@ const NewTaskView = () => {
           multiline
           rows={3}
           fullWidth
+          value={formData.comment}
+          onChange={(e) =>
+            setFormData({ ...formData, comment: e.target.value })
+          }
         />
         (Optional) Priority
         <br />
