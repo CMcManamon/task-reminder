@@ -8,6 +8,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../../actions/tasks";
+import moment from "moment";
 
 const Task = (props) => {
   const { task } = props;
@@ -19,7 +20,7 @@ const Task = (props) => {
         <Typography variant="h5" component="div">
           {task.comment}
         </Typography>
-        <Typography>{task.dueDate}</Typography>
+        <Typography>{moment(task.dueDate).toNow()}</Typography>
       </CardContent>
       <CardActions>
         <Button
