@@ -20,7 +20,7 @@ const Task = (props) => {
         <Typography variant="h5" component="div">
           {task.comment}
         </Typography>
-        <Typography>{moment(task.dueDate).toNow()}</Typography>
+        <Typography>{moment(task.dueDate).fromNow()}</Typography>
       </CardContent>
       <CardActions>
         <Button
