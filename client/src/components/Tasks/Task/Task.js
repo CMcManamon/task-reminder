@@ -13,6 +13,20 @@ import moment from "moment";
 const Task = (props) => {
   const { task, setCurrentId } = props;
   const dispatch = useDispatch();
+
+  function formatDate(date) {
+    const today = moment().endOf("day");
+    const tomorrow = moment().add(1, "day").endOf("day");
+    const yesterday = moment().subtract(1, "day").endOf("day");
+    const olderThanYesterday = moment().subtract(2, "day").endOf("day");
+
+    if (date < olderThanYesterday || date > tomorrow)
+      return moment(date).fromNow();
+    if (date <= yesterday) return "yesterday";
+    if (date <= today) return "today";
+    if (date <= tomorrow) return "tomorrow";
+  }
+
   return (
     <Card>
       <CardContent>
@@ -20,7 +34,7 @@ const Task = (props) => {
         <Typography variant="h5" component="div">
           {task.comment}
         </Typography>
-        <Typography>{moment(task.dueDate).fromNow()}</Typography>
+        <Typography>{formatDate(moment(task.dueDate))}</Typography>
       </CardContent>
       <CardActions>
         <Button
