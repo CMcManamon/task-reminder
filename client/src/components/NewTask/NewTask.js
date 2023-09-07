@@ -65,10 +65,6 @@ const NewTaskView = ({ currentId, setCurrentId }) => {
     }
   };
 
-  function startTypeToMomentType(type) {
-    return type.split("_")[1];
-  }
-
   function buildTaskData() {
     // Calculate Due Date
     let dueDate = new Date(); // Today
@@ -77,12 +73,10 @@ const NewTaskView = ({ currentId, setCurrentId }) => {
     } else if (formData.startDate === "nextWeek") {
       dueDate = moment(dueDate).add(1, "week").toDate();
     } else if (formData.startDate === "custom") {
-      dueDate = moment(
-        dueDate.add(
-          formData.customStartNum,
-          startTypeToMomentType(formData.customStartType)
-        )
-      ).toDate();
+      // e.g. "start_days" is split to "days"
+      dueDate = moment(dueDate)
+        .add(formData.customStartNum, formData.customStartType.split("_")[1])
+        .toDate();
     }
 
     return {
@@ -176,10 +170,10 @@ const NewTaskView = ({ currentId, setCurrentId }) => {
           <ToggleButton value="today">Today</ToggleButton>
           <ToggleButton value="tomorrow">Tomorrow</ToggleButton>
           <ToggleButton value="nextWeek">Next Week</ToggleButton>
+          <ToggleButton value="custom">Custom</ToggleButton>
         </ToggleButtonGroup>
         <br />
-        <Box>
-          <ToggleButton value="custom">Custom</ToggleButton>
+        <Box display={formData.startDate !== "custom" ? "none" : "block"}>
           <TextField
             type="number"
             name="customNumber"
@@ -210,24 +204,26 @@ const NewTaskView = ({ currentId, setCurrentId }) => {
           label="Repeat when done?"
           labelPlacement="start"
         />
-        <TextField
-          type="number"
-          name="customRepeat"
-          value={formData.period}
-          onChange={handleperiodChange}
-          sx={{ width: 80 }}
-        />
-        <Select
-          name="selectperiodType"
-          id="selectperiodType"
-          value={formData.periodType}
-          onChange={handleperiodTypeChange}
-        >
-          <MenuItem value={"repeat_days"}>Days</MenuItem>
-          <MenuItem value={"repeat_weeks"}>Weeks</MenuItem>
-          <MenuItem value={"repeat_months"}>Months</MenuItem>
-          <MenuItem value={"repeat_years"}>Years</MenuItem>
-        </Select>
+        <Box display={formData.recurring ? "inline" : "none"}>
+          <TextField
+            type="number"
+            name="customRepeat"
+            value={formData.period}
+            onChange={handleperiodChange}
+            sx={{ width: 80 }}
+          />
+          <Select
+            name="selectperiodType"
+            id="selectperiodType"
+            value={formData.periodType}
+            onChange={handleperiodTypeChange}
+          >
+            <MenuItem value={"repeat_days"}>Days</MenuItem>
+            <MenuItem value={"repeat_weeks"}>Weeks</MenuItem>
+            <MenuItem value={"repeat_months"}>Months</MenuItem>
+            <MenuItem value={"repeat_years"}>Years</MenuItem>
+          </Select>
+        </Box>
         <TextField
           id="comments"
           name="comments"
