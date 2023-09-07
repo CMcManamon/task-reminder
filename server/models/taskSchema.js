@@ -11,11 +11,15 @@ const taskSchema = mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  recurring: Boolean,
   period: {
     type: Number,
     default: 7,
   },
-  recurring: Boolean,
+  periodType: {
+    type: String,
+    default: "repeat_days",
+  },
   priority: {
     type: Number,
     default: 0,

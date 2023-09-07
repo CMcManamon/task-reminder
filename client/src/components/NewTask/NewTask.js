@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   TextField,
   Button,
@@ -15,43 +15,74 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { createTask } from "../../actions/tasks";
+import { createTask, updateTask } from "../../actions/tasks";
+import moment from "moment";
 
-const NewTaskView = () => {
+const NewTaskView = ({ currentId, setCurrentId }) => {
   // See: server/models/taskSchema
   const [formData, setFormData] = useState({
     title: "",
     comment: "",
     startDate: "today",
     customStartNum: 1,
-    customStartPeriod: "days",
+    customStartType: "start_days",
     recurring: false,
-    repeatNum: 1,
-    repeatPeriod: "repeat_days",
+    period: 1,
+    periodType: "repeat_days",
     priority: 2,
   });
-
+  const task = useSelector((state) =>
+    currentId ? state.tasks.find((p) => p._id === currentId) : null
+  );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (task)
+      setFormData({
+        ...task,
+        startDate: "today",
+        customStartNum: 1,
+        customStartType: "start_days",
+      });
+  }, [task]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formData.title === "") console.log("Must enter a title");
-    // Display this error somewhere for user
-    else {
-      const task = buildTaskData();
-      dispatch(createTask(task));
+
+    if (currentId) {
+      // updating a task
+      dispatch(updateTask(currentId, formData));
+      clear();
+    } else {
+      // creating a new task
+      if (formData.title === "") console.log("Must enter a title");
+      // Display this error somewhere for user
+      else {
+        const task = buildTaskData();
+        dispatch(createTask(task));
+        clear();
+      }
     }
   };
 
+  function startTypeToMomentType(type) {
+    return type.split("_")[1];
+  }
+
   function buildTaskData() {
     // Calculate Due Date
-    let dueDate;
-    if (formData.startDate === "today") dueDate = new Date();
-    else if (formData.startDate === "tomorrow") {
-      dueDate = new Date(); // ToDo: tomorrow
+    let dueDate = new Date(); // Today
+    if (formData.startDate === "tomorrow") {
+      dueDate = moment(dueDate).add(1, "days").toDate();
     } else if (formData.startDate === "nextWeek") {
-      dueDate = new Date(); // ToDo: next week
+      dueDate = moment(dueDate).add(1, "week").toDate();
     } else if (formData.startDate === "custom") {
-      dueDate = new Date(); // ToDo: ??
+      dueDate = moment(
+        dueDate.add(
+          formData.customStartNum,
+          startTypeToMomentType(formData.customStartType)
+        )
+      ).toDate();
     }
 
     return {
@@ -59,8 +90,9 @@ const NewTaskView = () => {
       comment: formData.comment,
       creationDate: new Date(),
       dueDate: dueDate,
-      period: formData.period,
       recurring: formData.recurring,
+      period: formData.period,
+      periodType: formData.periodType,
       priority: formData.priority,
     };
   }
@@ -74,7 +106,7 @@ const NewTaskView = () => {
 
   // User changed selection of days/weeks/months/years for start date
   const handleCustomStartChange = (event) => {
-    setFormData({ ...formData, customStartPeriod: event.target.value });
+    setFormData({ ...formData, customStartType: event.target.value });
   };
 
   // ToDo
@@ -91,19 +123,34 @@ const NewTaskView = () => {
   };
 
   // User changed selection of days/weeks/months/years for repeats
-  const handleRepeatPeriodChange = (event) => {
-    setFormData({ ...formData, repeatPeriod: event.target.value });
+  const handleperiodTypeChange = (event) => {
+    setFormData({ ...formData, periodType: event.target.value });
   };
 
   // User enters a custom number of repeat
-  const handleRepeatNumChange = (event) => {
+  const handleperiodChange = (event) => {
     let num = parseInt(event.target.value, 10);
     if (Number.isNaN(num) || num < 1) num = 1;
-    setFormData({ ...formData, repeatNum: num });
+    setFormData({ ...formData, period: num });
   };
 
   const handlePriorityChange = (event) => {
     setFormData({ ...formData, priority: event.target.value });
+  };
+
+  const clear = () => {
+    setCurrentId(null);
+    setFormData({
+      title: "",
+      comment: "",
+      startDate: "today",
+      customStartNum: 1,
+      customStartType: "start_days",
+      recurring: false,
+      period: 1,
+      periodType: "repeat_days",
+      priority: 2,
+    });
   };
 
   return (
@@ -118,6 +165,7 @@ const NewTaskView = () => {
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
         />
         When do you want to start?
+        <br />
         <ToggleButtonGroup
           color="primary"
           value={formData.startDate}
@@ -142,13 +190,13 @@ const NewTaskView = () => {
           <Select
             name="selectCustomPeriod"
             id="selectCustomPeriod"
-            value={formData.customStartPeriod}
+            value={formData.customStartType}
             onChange={handleCustomStartChange}
           >
-            <MenuItem value={"days"}>Days</MenuItem>
-            <MenuItem value={"weeks"}>Weeks</MenuItem>
-            <MenuItem value={"months"}>Months</MenuItem>
-            <MenuItem value={"years"}>Years</MenuItem>
+            <MenuItem value={"start_days"}>Days</MenuItem>
+            <MenuItem value={"start_weeks"}>Weeks</MenuItem>
+            <MenuItem value={"start_months"}>Months</MenuItem>
+            <MenuItem value={"start_years"}>Years</MenuItem>
           </Select>
         </Box>
         <FormControlLabel
@@ -165,15 +213,15 @@ const NewTaskView = () => {
         <TextField
           type="number"
           name="customRepeat"
-          value={formData.repeatNum}
-          onChange={handleRepeatNumChange}
+          value={formData.period}
+          onChange={handleperiodChange}
           sx={{ width: 80 }}
         />
         <Select
-          name="selectRepeatPeriod"
-          id="selectRepeatPeriod"
-          value={formData.repeatPeriod}
-          onChange={handleRepeatPeriodChange}
+          name="selectperiodType"
+          id="selectperiodType"
+          value={formData.periodType}
+          onChange={handleperiodTypeChange}
         >
           <MenuItem value={"repeat_days"}>Days</MenuItem>
           <MenuItem value={"repeat_weeks"}>Weeks</MenuItem>
@@ -210,7 +258,7 @@ const NewTaskView = () => {
           type="submit"
           fullWidth
         >
-          Create Task
+          {currentId ? "Edit" : "Create"} Task
         </Button>
       </form>
     </Paper>

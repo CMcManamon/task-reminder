@@ -11,7 +11,7 @@ import { deleteTask } from "../../../actions/tasks";
 import moment from "moment";
 
 const Task = (props) => {
-  const { task } = props;
+  const { task, setCurrentId } = props;
   const dispatch = useDispatch();
   return (
     <Card>
@@ -32,6 +32,15 @@ const Task = (props) => {
         >
           <DeleteIcon fontSize="small" />
           Delete
+        </Button>
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => {
+            setCurrentId(task._id);
+          }}
+        >
+          Edit
         </Button>
       </CardActions>
     </Card>
