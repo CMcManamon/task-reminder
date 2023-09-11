@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import NavBar from "./components/NavBar/NavBar";
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
 import { Container, AppBar, Typography } from "@mui/material";
@@ -16,12 +17,8 @@ function App() {
 
   return (
     <Container maxWidth="md">
-      <AppBar position="static" color="inherit">
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Task Manager
-        </Typography>
-      </AppBar>
-      <NewTask currentId={currentId} setCurrentId={setCurrentId} />
+      <AppBar position="static" color="inherit"></AppBar>
+      <NavBar />
       <Tasks setCurrentId={setCurrentId} />
     </Container>
   );
