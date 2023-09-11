@@ -12,8 +12,8 @@ This is a MERN stack web application that managers users' tasks. Unlike other ta
 * ~~Display static list of tasks~~
 * ~~User can dynamically add new tasks (single user)~~
 * ~~App loads tasks from database when user opens app (single user)~~
-* User can delete a task
-* User can modify a task
+* ~~User can delete a task~~
+* ~~User can modify a task~~
 * User can log in with Google OAuth
 * Mobile responsiveness
 * Deploy to web
