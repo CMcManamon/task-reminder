@@ -6,8 +6,18 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AddIcon from "@mui/icons-material/Add";
+import FormDialog from "../../components/FormDialog/FormDialog";
+import NewTask from "../../components/NewTask/NewTask";
+import { useSelector, useDispatch } from "react-redux";
+import { openForm } from "../../actions/menu";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+
+  const handleClickAddTask = () => {
+    dispatch(openForm(true));
+  };
+
   const title = "Task Reminder";
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -36,11 +46,15 @@ const NavBar = () => {
             color="inherit"
             aria-label="menu"
             sx={{ ml: 2 }}
+            onClick={handleClickAddTask}
           >
             <AddIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
+      <FormDialog>
+        <NewTask />
+      </FormDialog>
     </Box>
   );
 };

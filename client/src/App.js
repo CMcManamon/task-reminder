@@ -6,6 +6,7 @@ import NewTask from "./components/NewTask/NewTask";
 import { Container, AppBar, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { getTasks } from "./actions/tasks";
+import FormDialog from "./components/FormDialog/FormDialog";
 
 function App() {
   const [currentId, setCurrentId] = useState(null);
@@ -18,7 +19,11 @@ function App() {
   return (
     <Container maxWidth="md">
       <AppBar position="static" color="inherit"></AppBar>
-      <NavBar />
+      <NavBar>
+        <FormDialog>
+          <NewTask />
+        </FormDialog>
+      </NavBar>
       <Tasks setCurrentId={setCurrentId} />
     </Container>
   );

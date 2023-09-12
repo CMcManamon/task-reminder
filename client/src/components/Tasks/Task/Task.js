@@ -51,7 +51,7 @@ const Task = (props) => {
           size="small"
           color="primary"
           onClick={() => {
-            setCurrentId(task._id);
+            dispatch(setCurrentId(task._id));
           }}
         >
           Edit

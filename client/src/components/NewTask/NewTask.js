@@ -16,9 +16,10 @@ import {
   Select,
 } from "@mui/material";
 import { createTask, updateTask } from "../../actions/tasks";
+import { openForm, setCurrentId } from "../../actions/menu";
 import moment from "moment";
 
-const NewTaskView = ({ currentId, setCurrentId }) => {
+const NewTaskView = () => {
   // See: server/models/taskSchema
   const [formData, setFormData] = useState({
     title: "",
@@ -31,6 +32,8 @@ const NewTaskView = ({ currentId, setCurrentId }) => {
     periodType: "repeat_days",
     priority: 2,
   });
+
+  const currentId = useSelector((state) => state.menu.currentTaskId);
   const task = useSelector((state) =>
     currentId ? state.tasks.find((p) => p._id === currentId) : null
   );
@@ -60,6 +63,7 @@ const NewTaskView = ({ currentId, setCurrentId }) => {
       else {
         const task = buildTaskData();
         dispatch(createTask(task));
+        dispatch(openForm(false));
         clear();
       }
     }
@@ -133,7 +137,7 @@ const NewTaskView = ({ currentId, setCurrentId }) => {
   };
 
   const clear = () => {
-    setCurrentId(null);
+    dispatch(setCurrentId(null));
     setFormData({
       title: "",
       comment: "",
