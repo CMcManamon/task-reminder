@@ -9,9 +9,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../../actions/tasks";
 import moment from "moment";
+import { openForm, setEditId } from "../../../actions/menu";
 
 const Task = (props) => {
-  const { task, setCurrentId } = props;
+  const { task } = props;
   const dispatch = useDispatch();
 
   function formatDate(date) {
@@ -51,7 +52,8 @@ const Task = (props) => {
           size="small"
           color="primary"
           onClick={() => {
-            dispatch(setCurrentId(task._id));
+            dispatch(setEditId(task._id));
+            dispatch(openForm(true));
           }}
         >
           Edit

@@ -4,6 +4,6 @@ export const openForm = (val) => (dispatch) => {
   dispatch({ type: "OPEN_FORM", payload: val });
 };
 
-export const setCurrentId = (id) => (dispatch) => {
-  dispatch({ type: "SET_TASK_ID", payload: id });
+export const setEditId = (id) => (dispatch) => {
+  dispatch({ type: "SET_EDIT_ID", payload: id });
 };

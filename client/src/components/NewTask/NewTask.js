@@ -16,7 +16,7 @@ import {
   Select,
 } from "@mui/material";
 import { createTask, updateTask } from "../../actions/tasks";
-import { openForm, setCurrentId } from "../../actions/menu";
+import { openForm } from "../../actions/menu";
 import moment from "moment";
 
 const NewTaskView = () => {
@@ -33,7 +33,7 @@ const NewTaskView = () => {
     priority: 2,
   });
 
-  const currentId = useSelector((state) => state.menu.currentTaskId);
+  const currentId = useSelector((state) => state.menu.editTaskId);
   const task = useSelector((state) =>
     currentId ? state.tasks.find((p) => p._id === currentId) : null
   );
@@ -52,21 +52,21 @@ const NewTaskView = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (formData.title === "") {
+      // Display this error somewhere for user
+      console.log("Must enter a title");
+      return;
+    }
     if (currentId) {
       // updating a task
       dispatch(updateTask(currentId, formData));
-      clear();
     } else {
       // creating a new task
-      if (formData.title === "") console.log("Must enter a title");
-      // Display this error somewhere for user
-      else {
-        const task = buildTaskData();
-        dispatch(createTask(task));
-        dispatch(openForm(false));
-        clear();
-      }
+      const task = buildTaskData();
+      dispatch(createTask(task));
     }
+    dispatch(openForm(false));
+    clear();
   };
 
   function buildTaskData() {
@@ -137,7 +137,6 @@ const NewTaskView = () => {
   };
 
   const clear = () => {
-    dispatch(setCurrentId(null));
     setFormData({
       title: "",
       comment: "",
@@ -258,7 +257,7 @@ const NewTaskView = () => {
           type="submit"
           fullWidth
         >
-          {currentId ? "Edit" : "Create"} Task
+          {currentId ? "Save" : "Create"} Task
         </Button>
       </form>
     </Paper>

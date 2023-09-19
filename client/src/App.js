@@ -9,12 +9,11 @@ import { getTasks } from "./actions/tasks";
 import FormDialog from "./components/FormDialog/FormDialog";
 
 function App() {
-  const [currentId, setCurrentId] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getTasks());
-  }, [currentId, dispatch]);
+  }, [dispatch]);
 
   return (
     <Container maxWidth="md">
@@ -24,7 +23,7 @@ function App() {
           <NewTask />
         </FormDialog>
       </NavBar>
-      <Tasks setCurrentId={setCurrentId} />
+      <Tasks />
     </Container>
   );
 }

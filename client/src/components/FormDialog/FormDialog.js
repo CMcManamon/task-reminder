@@ -9,15 +9,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useSelector, useDispatch } from "react-redux";
-import { openForm } from "../../actions/menu";
+import { openForm, setEditId } from "../../actions/menu";
 
 const FormDialog = (props) => {
-  /* TODO: use redux for state management
-        NavBar sets the state for opening the "add task" dialog
-        FormDialog needs to read the state for value of "open" 
-    */
-
   const open = useSelector((state) => state.menu.openForm);
+  const editId = useSelector((state) => state.menu.editTaskId);
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -31,7 +27,7 @@ const FormDialog = (props) => {
       open={open}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        New Task
+        {editId === null ? "New" : "Edit"} Task
       </DialogTitle>
       <IconButton
         aria-label="close"

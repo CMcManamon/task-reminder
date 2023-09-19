@@ -1,14 +1,14 @@
 const initialState = {
   openForm: false,
-  currentTaskId: null,
+  editTaskId: null,
 };
 
 export default function menu(state = initialState, action) {
   switch (action.type) {
     case "OPEN_FORM":
       return { ...state, openForm: action.payload };
-    case "SET_TASK_ID":
-      return { ...state, currentTaskId: action.payload };
+    case "SET_EDIT_ID":
+      return { ...state, editTaskId: action.payload };
     default:
       return state;
   }

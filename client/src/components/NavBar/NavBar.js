@@ -8,13 +8,14 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AddIcon from "@mui/icons-material/Add";
 import FormDialog from "../../components/FormDialog/FormDialog";
 import NewTask from "../../components/NewTask/NewTask";
-import { useSelector, useDispatch } from "react-redux";
-import { openForm } from "../../actions/menu";
+import { useDispatch } from "react-redux";
+import { openForm, setEditId } from "../../actions/menu";
 
 const NavBar = () => {
   const dispatch = useDispatch();
 
   const handleClickAddTask = () => {
+    dispatch(setEditId(null));
     dispatch(openForm(true));
   };
 

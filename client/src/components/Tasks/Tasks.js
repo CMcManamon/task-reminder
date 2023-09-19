@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Stack, CircularProgress } from "@mui/material";
 import moment from "moment";
 
-const Tasks = ({ setCurrentId }) => {
+const Tasks = () => {
   const tasks = useSelector((state) => state.tasks);
   let rows = [];
   if (tasks === undefined) return "";
@@ -14,9 +14,7 @@ const Tasks = ({ setCurrentId }) => {
   */
   tasks.sort((a, b) => moment(a.dueDate).diff(moment(b.dueDate)));
   tasks.forEach((task) => {
-    rows.push(
-      <Task key={task._id} task={task} setCurrentId={setCurrentId}></Task>
-    );
+    rows.push(<Task key={task._id} task={task}></Task>);
   });
   return !tasks.length ? (
     <CircularProgress />
