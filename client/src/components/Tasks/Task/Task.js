@@ -2,6 +2,7 @@ import {
   Button,
   Card,
   CardActions,
+  CardActionArea,
   CardContent,
   Typography,
 } from "@mui/material";
@@ -9,7 +10,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../../actions/tasks";
 import moment from "moment";
-import { openForm, setEditId } from "../../../actions/menu";
+import { openForm, setEditId, openTaskOptions } from "../../../actions/menu";
 
 const Task = (props) => {
   const { task } = props;
@@ -28,15 +29,22 @@ const Task = (props) => {
     if (date <= tomorrow) return "tomorrow";
   }
 
+  const handleClick = () => {
+    dispatch(setEditId(task._id));
+    dispatch(openTaskOptions(true));
+  };
+
   return (
     <Card>
-      <CardContent>
-        <Typography variant="h4">{task.title}</Typography>
-        <Typography variant="h5" component="div">
-          {task.comment}
-        </Typography>
-        <Typography>{formatDate(moment(task.dueDate))}</Typography>
-      </CardContent>
+      <CardActionArea onClick={handleClick}>
+        <CardContent>
+          <Typography variant="h4">{task.title}</Typography>
+          <Typography variant="h5" component="div">
+            {task.comment}
+          </Typography>
+          <Typography>{formatDate(moment(task.dueDate))}</Typography>
+        </CardContent>
+      </CardActionArea>
       <CardActions>
         <Button
           size="small"

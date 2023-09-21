@@ -5,15 +5,15 @@ import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector, useDispatch } from "react-redux";
-import { openForm } from "../../actions/menu";
+import { openTaskOptions } from "../../actions/menu";
 
-const FormDialog = (props) => {
-  const open = useSelector((state) => state.menu.openForm);
+const TaskOptionsDialog = (props) => {
+  const open = useSelector((state) => state.menu.openTaskOptions);
   const editId = useSelector((state) => state.menu.editTaskId);
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    dispatch(openForm(false));
+    dispatch(openTaskOptions(false));
   };
 
   return (
@@ -23,7 +23,7 @@ const FormDialog = (props) => {
       open={open}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        {editId === null ? "New" : "Edit"} Task
+        {editId}
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -41,4 +41,4 @@ const FormDialog = (props) => {
     </Dialog>
   );
 };
-export default FormDialog;
+export default TaskOptionsDialog;

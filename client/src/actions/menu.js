@@ -7,3 +7,7 @@ export const openForm = (val) => (dispatch) => {
 export const setEditId = (id) => (dispatch) => {
   dispatch({ type: "SET_EDIT_ID", payload: id });
 };
+
+export const openTaskOptions = (val) => (dispatch) => {
+  dispatch({ type: "OPEN_TASK_OPTIONS", payload: val });
+};

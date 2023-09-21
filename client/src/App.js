@@ -3,10 +3,12 @@ import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
-import { Container, AppBar, Typography } from "@mui/material";
+import { Container, AppBar } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { getTasks } from "./actions/tasks";
 import FormDialog from "./components/FormDialog/FormDialog";
+import TaskOptionsDialog from "./components/TaskOptionsDialog/TaskOptionsDialog";
+import TaskOptions from "./components/TaskOptions/TaskOptions";
 
 function App() {
   const dispatch = useDispatch();
@@ -17,13 +19,11 @@ function App() {
 
   return (
     <Container maxWidth="md">
-      <AppBar position="static" color="inherit"></AppBar>
-      <NavBar>
-        <FormDialog>
-          <NewTask />
-        </FormDialog>
-      </NavBar>
+      <NavBar></NavBar>
       <Tasks />
+      <TaskOptionsDialog>
+        <TaskOptions />
+      </TaskOptionsDialog>
     </Container>
   );
 }
