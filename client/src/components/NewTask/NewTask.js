@@ -33,7 +33,7 @@ const NewTaskView = () => {
     priority: 2,
   });
 
-  const currentId = useSelector((state) => state.menu.editTaskId);
+  const currentId = useSelector((state) => state.menu.editableTask._id);
   const task = useSelector((state) =>
     currentId ? state.tasks.find((p) => p._id === currentId) : null
   );

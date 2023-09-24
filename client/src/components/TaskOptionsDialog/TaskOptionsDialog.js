@@ -23,7 +23,7 @@ const TaskOptionsDialog = (props) => {
       open={open}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        {task.title}
+        {task ? task.title : `Task not found`}
       </DialogTitle>
       <IconButton
         aria-label="close"

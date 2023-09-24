@@ -4,7 +4,8 @@ import DoneIcon from "@mui/icons-material/Done";
 import { Button, Paper } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTask } from "../../actions/tasks";
-import { openTaskOptions } from "../../actions/menu";
+import { openTaskOptions, setEditableTask } from "../../actions/menu";
+import { openForm } from "../../actions/menu";
 
 const TaskOptions = () => {
   const dispatch = useDispatch();
@@ -12,7 +13,10 @@ const TaskOptions = () => {
   const task = useSelector((state) => state.menu.editableTask);
   const handleDone = () => {};
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    dispatch(openForm(true));
+    dispatch(openTaskOptions(false));
+  };
 
   const handleDelete = () => {
     dispatch(deleteTask(task._id));
