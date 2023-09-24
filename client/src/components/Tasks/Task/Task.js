@@ -10,7 +10,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../../actions/tasks";
 import moment from "moment";
-import { openForm, setEditId, openTaskOptions } from "../../../actions/menu";
+import {
+  openForm,
+  setEditableTask,
+  openTaskOptions,
+} from "../../../actions/menu";
 
 const Task = (props) => {
   const { task } = props;
@@ -30,7 +34,7 @@ const Task = (props) => {
   }
 
   const handleClick = () => {
-    dispatch(setEditId(task._id));
+    dispatch(setEditableTask(task));
     dispatch(openTaskOptions(true));
   };
 
@@ -45,28 +49,6 @@ const Task = (props) => {
           <Typography>{formatDate(moment(task.dueDate))}</Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            dispatch(deleteTask(task._id));
-          }}
-        >
-          <DeleteIcon fontSize="small" />
-          Delete
-        </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => {
-            dispatch(setEditId(task._id));
-            dispatch(openForm(true));
-          }}
-        >
-          Edit
-        </Button>
-      </CardActions>
     </Card>
   );
 };

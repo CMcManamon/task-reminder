@@ -9,7 +9,7 @@ import { openTaskOptions } from "../../actions/menu";
 
 const TaskOptionsDialog = (props) => {
   const open = useSelector((state) => state.menu.openTaskOptions);
-  const editId = useSelector((state) => state.menu.editTaskId);
+  const task = useSelector((state) => state.menu.editableTask);
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -23,7 +23,7 @@ const TaskOptionsDialog = (props) => {
       open={open}
     >
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-        {editId}
+        {task.title}
       </DialogTitle>
       <IconButton
         aria-label="close"

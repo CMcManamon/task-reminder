@@ -9,13 +9,13 @@ import AddIcon from "@mui/icons-material/Add";
 import FormDialog from "../../components/FormDialog/FormDialog";
 import NewTask from "../../components/NewTask/NewTask";
 import { useDispatch } from "react-redux";
-import { openForm, setEditId } from "../../actions/menu";
+import { openForm, setEditableTask } from "../../actions/menu";
 
 const NavBar = () => {
   const dispatch = useDispatch();
 
   const handleClickAddTask = () => {
-    dispatch(setEditId(null));
+    dispatch(setEditableTask(null));
     dispatch(openForm(true));
   };
 

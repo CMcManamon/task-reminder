@@ -2,14 +2,23 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DoneIcon from "@mui/icons-material/Done";
 import { Button, Paper } from "@mui/material";
-
-const handleDone = () => {};
-
-const handleEdit = () => {};
-
-const handleDelete = () => {};
+import { useSelector, useDispatch } from "react-redux";
+import { deleteTask } from "../../actions/tasks";
+import { openTaskOptions } from "../../actions/menu";
 
 const TaskOptions = () => {
+  const dispatch = useDispatch();
+
+  const task = useSelector((state) => state.menu.editableTask);
+  const handleDone = () => {};
+
+  const handleEdit = () => {};
+
+  const handleDelete = () => {
+    dispatch(deleteTask(task._id));
+    dispatch(openTaskOptions(false));
+  };
+
   return (
     <Paper>
       <Button size="large" color="primary" onClick={handleDone}>
