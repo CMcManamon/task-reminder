@@ -34,6 +34,7 @@ const Task = (props) => {
   }
 
   const handleClick = () => {
+    console.log(task);
     dispatch(setEditableTask(task));
     dispatch(openTaskOptions(true));
   };

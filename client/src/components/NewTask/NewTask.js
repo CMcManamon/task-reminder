@@ -33,7 +33,8 @@ const NewTaskView = () => {
     priority: 2,
   });
 
-  const currentId = useSelector((state) => state.menu.editableTask._id);
+  const currentTask = useSelector((state) => state.menu.editableTask);
+  const currentId = currentTask ? currentTask._id : null;
   const task = useSelector((state) =>
     currentId ? state.tasks.find((p) => p._id === currentId) : null
   );
@@ -57,12 +58,12 @@ const NewTaskView = () => {
       console.log("Must enter a title");
       return;
     }
+    const task = buildTaskData();
     if (currentId) {
       // updating a task
-      dispatch(updateTask(currentId, formData));
+      dispatch(updateTask(currentId, task));
     } else {
       // creating a new task
-      const task = buildTaskData();
       dispatch(createTask(task));
     }
     dispatch(openForm(false));
@@ -86,7 +87,7 @@ const NewTaskView = () => {
     return {
       title: formData.title,
       comment: formData.comment,
-      creationDate: new Date(),
+      creationDate: currentId ? task.creationDate : new Date(),
       dueDate: dueDate,
       recurring: formData.recurring,
       period: formData.period,
