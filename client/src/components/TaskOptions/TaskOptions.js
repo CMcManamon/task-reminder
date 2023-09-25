@@ -3,15 +3,29 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import DoneIcon from "@mui/icons-material/Done";
 import { Button, Paper } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTask } from "../../actions/tasks";
-import { openTaskOptions, setEditableTask } from "../../actions/menu";
+import { deleteTask, updateTask } from "../../actions/tasks";
+import { openTaskOptions } from "../../actions/menu";
 import { openForm } from "../../actions/menu";
+import moment from "moment";
 
 const TaskOptions = () => {
   const dispatch = useDispatch();
 
   const task = useSelector((state) => state.menu.editableTask);
-  const handleDone = () => {};
+  const handleDone = () => {
+    if (task.recurring === false) {
+      // One-time task. Delete and notify user
+      // To-Do: give option to make task recurring
+      dispatch(deleteTask(task._id));
+    } else {
+      // Calculate new due date
+      let newDueDate = moment(new Date())
+        .add(task.period, task.periodType.split("_")[1])
+        .toDate();
+      dispatch(updateTask(task._id, { ...task, dueDate: newDueDate }));
+    }
+    dispatch(openTaskOptions(false));
+  };
 
   const handleEdit = () => {
     dispatch(openForm(true));
