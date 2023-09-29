@@ -43,7 +43,7 @@ const Task = (props) => {
       <CardActionArea onClick={handleClick}>
         <CardContent>
           <Typography variant="h4">{task.title}</Typography>
-          <Typography variant="h5" component="div">
+          <Typography variant="body2" color="textSecondary" component="p">
             {task.comment}
           </Typography>
           <Typography>{formatDate(moment(task.dueDate))}</Typography>
