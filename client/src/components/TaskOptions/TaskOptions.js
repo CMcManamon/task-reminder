@@ -39,15 +39,30 @@ const TaskOptions = () => {
 
   return (
     <Paper>
-      <Button size="large" color="primary" onClick={handleDone}>
+      <Button
+        size="large"
+        color="primary"
+        onClick={handleDone}
+        sx="flex-direction:column"
+      >
         <DoneIcon fontSize="large" />
         Done
       </Button>
-      <Button size="large" color="primary" onClick={handleEdit}>
+      <Button
+        size="large"
+        color="primary"
+        onClick={handleEdit}
+        sx="flex-direction:column"
+      >
         <EditNoteIcon fontSize="large" />
         Edit
       </Button>
-      <Button size="large" color="primary" onClick={handleDelete}>
+      <Button
+        size="large"
+        color="primary"
+        onClick={handleDelete}
+        sx="flex-direction: column"
+      >
         <DeleteIcon fontSize="large" />
         Delete
       </Button>
