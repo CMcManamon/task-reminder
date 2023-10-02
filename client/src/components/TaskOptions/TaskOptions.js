@@ -43,7 +43,7 @@ const TaskOptions = () => {
         size="large"
         color="primary"
         onClick={handleDone}
-        sx="flex-direction:column"
+        sx={{ flexDirection: "column" }}
       >
         <DoneIcon fontSize="large" />
         Done
@@ -52,7 +52,7 @@ const TaskOptions = () => {
         size="large"
         color="primary"
         onClick={handleEdit}
-        sx="flex-direction:column"
+        sx={{ flexDirection: "column" }}
       >
         <EditNoteIcon fontSize="large" />
         Edit
@@ -61,7 +61,7 @@ const TaskOptions = () => {
         size="large"
         color="primary"
         onClick={handleDelete}
-        sx="flex-direction: column"
+        sx={{ flexDirection: "column" }}
       >
         <DeleteIcon fontSize="large" />
         Delete
