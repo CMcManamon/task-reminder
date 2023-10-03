@@ -1,0 +1,23 @@
+.taskCardWhite {
+  background-color: white;
+}
+
+.taskCardGreen {
+  background-color: #d8e2dc;
+}
+
+.taskCardYellow {
+  background-color: #ffe5d9;
+}
+
+.taskCardPink {
+  background-color: #ffcad4;
+}
+
+.taskCardRed {
+  background-color: #f4acb7;
+}
+
+.taskCardDarkRed {
+  background-color: #a35d71;
+}

@@ -6,7 +6,7 @@ export const sortTasks = () => {
     const priorityB = taskPriority(b);
 
     // Same calculated priority based on due date, defer to task priority setting
-    if (priorityA == priorityB) return b.priority - a.priority;
+    if (priorityA === priorityB) return b.priority - a.priority;
     // Neither is due, sort by highest priority
     else if (priorityA > 0 && priorityB > 0) return priorityB - priorityA;
     // At least 1 task is overdue; sort by most negative
@@ -24,7 +24,6 @@ const taskPriority = (task) => {
   const frequency = task.recurring ? taskFrequency(task) : 1;
   const priority =
     (PRIORITY_MULTIPLIER[task.priority] * daysUntilDue) / frequency;
-
   return priority;
 };
 
@@ -43,4 +42,15 @@ const taskFrequency = (task) => {
     default:
       return 1;
   }
+};
+
+export const taskCardClass = (task) => {
+  const priority = taskPriority(task);
+
+  if (priority <= -10) return "taskCardDarkRed";
+  if (priority <= -6) return "taskCardRed";
+  if (priority <= -2.5) return "taskCardPink";
+  if (priority <= -1.5) return "taskCardYellow";
+  if (priority <= 0) return "taskCardGreen";
+  return "taskCardWhite";
 };
