@@ -50,7 +50,7 @@ export const taskCardClass = (task) => {
   if (priority <= -10) return "taskCardDarkRed";
   if (priority <= -6) return "taskCardRed";
   if (priority <= -2.5) return "taskCardPink";
-  if (priority <= -1.5) return "taskCardYellow";
+  if (priority <= -1) return "taskCardYellow";
   if (priority <= 0) return "taskCardGreen";
   return "taskCardWhite";
 };

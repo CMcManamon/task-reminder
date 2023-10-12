@@ -24,6 +24,7 @@ const NavBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
+          {/*  
           <IconButton
             size="large"
             edge="start"
@@ -32,10 +33,11 @@ const NavBar = () => {
             sx={{ mr: 2 }}
           >
             <SettingsIcon />
-          </IconButton>
+          </IconButton>          
+          */}
           <Typography
             variant="h6"
-            align="center"
+            align="left"
             component="div"
             sx={{ flexGrow: 1 }}
           >

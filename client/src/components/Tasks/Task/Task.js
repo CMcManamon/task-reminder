@@ -15,9 +15,9 @@ const Task = (props) => {
   };
 
   return (
-    <Card className={taskCardClass(task)}>
+    <Card>
       <CardActionArea onClick={handleClick}>
-        <CardContent>
+        <CardContent className={taskCardClass(task)}>
           <Typography variant="h4">{task.title}</Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {task.comment}
