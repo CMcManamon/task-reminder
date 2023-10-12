@@ -21,7 +21,7 @@ let demoTasks = [
     dueDate: moment(new Date()).subtract(2, "days").toDate(),
     recurring: true,
     period: 1,
-    periodType: "repeat_week",
+    periodType: "repeat_weeks",
     priority: 3,
   },
 

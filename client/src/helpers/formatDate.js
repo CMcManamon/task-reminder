@@ -15,3 +15,28 @@ export function formatDate(date) {
   if (date <= today) return "Due today";
   if (date <= tomorrow) return "Due tomorrow";
 }
+
+export function formatRepeat(task) {
+  if (!task.recurring) {
+    return "";
+  }
+  let str = "(⟳ ";
+  str += task.period;
+  switch (task.periodType) {
+    case "repeat_days":
+      str += "d";
+      break;
+    case "repeat_weeks":
+      str += "w";
+      break;
+    case "repeat_months":
+      str += "m";
+      break;
+    case "repeat_years":
+      str += "y";
+      break;
+    default:
+  }
+  str += ")";
+  return str;
+}
