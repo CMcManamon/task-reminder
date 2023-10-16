@@ -18,8 +18,30 @@ const Task = (props) => {
     <Card>
       <CardActionArea onClick={handleClick}>
         <CardContent className={taskCardClass(task)}>
-          <Typography variant="h5">{task.title}</Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography
+            variant="h6"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: "2",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {task.title}
+          </Typography>
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            component="p"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: "2",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
             {task.comment}
           </Typography>
           <Typography>
