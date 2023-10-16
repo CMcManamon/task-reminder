@@ -124,6 +124,12 @@ const NewTaskView = () => {
     setFormData({ ...formData, title: event.target.value });
   };
 
+  // Comment changed
+  const handleCommentChange = (event) => {
+    if (event.target.value.trim() <= 16384) setCommentError(false);
+    setFormData({ ...formData, comment: event.target.value });
+  };
+
   // User chooses to start today, tomorrow, next week, or custom
   const handleStartToggleChange = (event, newStartDate) => {
     if (newStartDate !== null) {
@@ -263,14 +269,12 @@ const NewTaskView = () => {
           name="comments"
           label="Comments"
           error={commentError}
-          helperText={commentHelperText}
+          helperText={commentError ? commentHelperText : " "}
           multiline
           rows={3}
           fullWidth
           value={formData.comment}
-          onChange={(e) =>
-            setFormData({ ...formData, comment: e.target.value })
-          }
+          onChange={handleCommentChange}
         />
         (Optional) Priority
         <br />
