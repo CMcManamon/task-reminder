@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import CancelIcon from "@mui/icons-material/Cancel";
 import { useSelector, useDispatch } from "react-redux";
 import {
   TextField,
   Button,
-  Typography,
   Paper,
   FormControlLabel,
   Checkbox,
-  Container,
   Box,
   MenuItem,
   Select,
@@ -33,6 +30,11 @@ const NewTaskView = () => {
     priority: 2,
   });
 
+  const [titleError, setTitleError] = useState(false);
+  const [titleHelperText, setTitleHelperText] = useState(" ");
+  const [commentError, setCommentError] = useState(false);
+  const [commentHelperText, setCommentHelperText] = useState(" ");
+
   const currentTask = useSelector((state) => state.menu.editableTask);
   const currentId = currentTask ? currentTask._id : null;
   const task = useSelector((state) =>
@@ -53,11 +55,27 @@ const NewTaskView = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (formData.title === "") {
-      // Display this error somewhere for user
-      console.log("Must enter a title");
+    if (formData.title.trim() === "") {
+      setTitleError(true);
+      setTitleHelperText("Required");
       return;
     }
+    if (formData.title.trim().length > 500) {
+      setTitleError(true);
+      setTitleHelperText(
+        `Title character limit: ${formData.title.length} / 500`
+      );
+      return;
+    }
+
+    if (formData.comment.length > 16384) {
+      setCommentError(true);
+      setCommentHelperText(
+        `Comment character limit: ${formData.comment.length} / 16384`
+      );
+      return;
+    }
+
     const task = buildTaskData();
     if (currentId) {
       // updating a task
@@ -85,8 +103,8 @@ const NewTaskView = () => {
     }
 
     return {
-      title: formData.title,
-      comment: formData.comment,
+      title: formData.title.trim(),
+      comment: formData.comment.trim(),
       creationDate: currentId ? task.creationDate : new Date(),
       dueDate: dueDate,
       recurring: formData.recurring,
@@ -95,6 +113,22 @@ const NewTaskView = () => {
       priority: formData.priority,
     };
   }
+
+  // Title changed
+  const handleTitleChange = (event) => {
+    if (
+      event.target.value.trim().length > 0 &&
+      event.target.value.trim().length <= 500
+    )
+      setTitleError(false);
+    setFormData({ ...formData, title: event.target.value });
+  };
+
+  // Comment changed
+  const handleCommentChange = (event) => {
+    if (event.target.value.trim() <= 16384) setCommentError(false);
+    setFormData({ ...formData, comment: event.target.value });
+  };
 
   // User chooses to start today, tomorrow, next week, or custom
   const handleStartToggleChange = (event, newStartDate) => {
@@ -158,9 +192,11 @@ const NewTaskView = () => {
           name="taskName"
           variant="outlined"
           label="What's the task?"
+          error={titleError}
+          helperText={titleError ? titleHelperText : " "}
           fullWidth
           value={formData.title}
-          onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+          onChange={handleTitleChange}
         />
         When do you want to start?
         <br />
@@ -232,13 +268,13 @@ const NewTaskView = () => {
           id="comments"
           name="comments"
           label="Comments"
+          error={commentError}
+          helperText={commentError ? commentHelperText : " "}
           multiline
           rows={3}
           fullWidth
           value={formData.comment}
-          onChange={(e) =>
-            setFormData({ ...formData, comment: e.target.value })
-          }
+          onChange={handleCommentChange}
         />
         (Optional) Priority
         <br />
