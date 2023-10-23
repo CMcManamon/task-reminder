@@ -8,11 +8,8 @@ const Tasks = () => {
   let rows = [];
   if (tasks === undefined) return "";
 
-  /* Sort tasks by due date
-    TODO: sorting function that takes into account priority and period
-      e.g. a weekly task overdue is more important than a yearly task overdue by the same amount
-  */
   tasks.sort(sortTasks());
+
   tasks.forEach((task) => {
     rows.push(<Task key={task._id} task={task}></Task>);
   });

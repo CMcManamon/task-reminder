@@ -4,10 +4,8 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import SettingsIcon from "@mui/icons-material/Settings";
+//import SettingsIcon from "@mui/icons-material/Settings";
 import AddIcon from "@mui/icons-material/Add";
-import FormDialog from "../../components/FormDialog/FormDialog";
-import NewTask from "../../components/NewTask/NewTask";
 import { useDispatch } from "react-redux";
 import { openForm, setEditableTask } from "../../actions/menu";
 
@@ -24,7 +22,7 @@ const NavBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          {/*  
+          {/*  ToDo: Add settings
           <IconButton
             size="large"
             edge="start"
@@ -55,9 +53,6 @@ const NavBar = () => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <FormDialog>
-        <NewTask />
-      </FormDialog>
     </Box>
   );
 };

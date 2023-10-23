@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
 import Tasks from "./components/Tasks/Tasks";
 import NewTask from "./components/NewTask/NewTask";
-import { Container, AppBar } from "@mui/material";
+import { Container } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { getTasks } from "./actions/tasks";
 import FormDialog from "./components/FormDialog/FormDialog";
@@ -21,6 +21,9 @@ function App() {
     <Container maxWidth="md">
       <NavBar></NavBar>
       <Tasks />
+      <FormDialog>
+        <NewTask />
+      </FormDialog>
       <TaskOptionsDialog>
         <TaskOptions />
       </TaskOptionsDialog>

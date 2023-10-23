@@ -1,3 +1,7 @@
+/* TaskOptions is a set of buttons that appear in TaskOptionsDialog
+ *   when a task is clicked
+ * Options: Done, Edit, Delete
+ * */
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DoneIcon from "@mui/icons-material/Done";
@@ -11,7 +15,10 @@ import moment from "moment";
 const TaskOptions = () => {
   const dispatch = useDispatch();
 
+  // Get the task that was clicked on
   const task = useSelector((state) => state.menu.editableTask);
+
+  /* ----------------------------- Event Handlers ----------------------------- */
   const handleDone = () => {
     if (task.recurring === false) {
       // One-time task. Delete and notify user
@@ -37,6 +44,7 @@ const TaskOptions = () => {
     dispatch(openTaskOptions(false));
   };
 
+  /* --------------------------------- Return --------------------------------- */
   return (
     <Paper>
       <Button

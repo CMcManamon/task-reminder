@@ -1,5 +1,6 @@
 import moment from "moment";
 
+// Returns a text description of a due date relative to today
 export function formatDate(date) {
   if (!date) return "";
 
@@ -16,6 +17,8 @@ export function formatDate(date) {
   if (date <= tomorrow) return "Due tomorrow";
 }
 
+// Returns a description of how often a task repeats
+// e.g. (⟳ 2W)
 export function formatRepeat(task) {
   if (!task.recurring) {
     return "";

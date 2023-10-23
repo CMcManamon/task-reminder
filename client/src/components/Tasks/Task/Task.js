@@ -1,3 +1,4 @@
+/* A task is displayed in a Card with a title, comment, and due date */
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { formatDate, formatRepeat } from "../../../helpers/formatDate";

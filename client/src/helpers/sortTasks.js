@@ -21,6 +21,7 @@ const taskPriority = (task) => {
     (new Date(task.dueDate).getTime() - Date.now()) / MILLISECONDS_IN_DAY
   );
 
+  // Non-recurring task defaults to a daily frequency for priority determination
   const frequency = task.recurring ? taskFrequency(task) : 1;
   const priority =
     (PRIORITY_MULTIPLIER[task.priority] * daysUntilDue) / frequency;
@@ -44,6 +45,7 @@ const taskFrequency = (task) => {
   }
 };
 
+// Card class determines styling of task card
 export const taskCardClass = (task) => {
   const priority = taskPriority(task);
 

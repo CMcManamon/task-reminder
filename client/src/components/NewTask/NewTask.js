@@ -1,3 +1,9 @@
+/* NewTask.js returns a form used to create a new task or modify a task
+ * Child of FormDialog in NavBar.js
+ * When button is pressed to create new task or modify a task,
+ *  a dialog pops up to show the form
+ * */
+
 import { useState, useEffect } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
@@ -16,8 +22,7 @@ import { createTask, updateTask } from "../../actions/tasks";
 import { openForm } from "../../actions/menu";
 import moment from "moment";
 
-const NewTaskView = () => {
-  // See: server/models/taskSchema
+const NewTask = () => {
   const [formData, setFormData] = useState({
     title: "",
     comment: "",
@@ -30,11 +35,13 @@ const NewTaskView = () => {
     priority: 2,
   });
 
+  // Used to display error text if title or comment are too long (or title absent)
   const [titleError, setTitleError] = useState(false);
   const [titleHelperText, setTitleHelperText] = useState(" ");
   const [commentError, setCommentError] = useState(false);
   const [commentHelperText, setCommentHelperText] = useState(" ");
 
+  // Form can create new task or edit existing task (check for editable task)
   const currentTask = useSelector((state) => state.menu.editableTask);
   const currentId = currentTask ? currentTask._id : null;
   const task = useSelector((state) =>
@@ -44,6 +51,7 @@ const NewTaskView = () => {
 
   useEffect(() => {
     if (task)
+      // When modifying a task, set default start date to today
       setFormData({
         ...task,
         startDate: "today",
@@ -52,43 +60,12 @@ const NewTaskView = () => {
       });
   }, [task]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (formData.title.trim() === "") {
-      setTitleError(true);
-      setTitleHelperText("Required");
-      return;
-    }
-    if (formData.title.trim().length > 500) {
-      setTitleError(true);
-      setTitleHelperText(
-        `Title character limit: ${formData.title.length} / 500`
-      );
-      return;
-    }
-
-    if (formData.comment.length > 16384) {
-      setCommentError(true);
-      setCommentHelperText(
-        `Comment character limit: ${formData.comment.length} / 16384`
-      );
-      return;
-    }
-
-    const task = buildTaskData();
-    if (currentId) {
-      // updating a task
-      dispatch(updateTask(currentId, task));
-    } else {
-      // creating a new task
-      dispatch(createTask(task));
-    }
-    dispatch(openForm(false));
-    clear();
-  };
+  /* --------------------------------- Helpers -------------------------------- */
 
   function buildTaskData() {
+    // Takes form inputs to generate due date and returns an entire task object
+    // See: server/models/taskSchema
+
     // Calculate Due Date
     let dueDate = new Date(); // Today
     if (formData.startDate === "tomorrow") {
@@ -114,7 +91,22 @@ const NewTaskView = () => {
     };
   }
 
-  // Title changed
+  const clear = () => {
+    setFormData({
+      title: "",
+      comment: "",
+      startDate: "today",
+      customStartNum: 1,
+      customStartType: "start_days",
+      recurring: false,
+      period: 1,
+      periodType: "repeat_days",
+      priority: 2,
+    });
+  };
+
+  /* ----------------------------- Event Handlers ----------------------------- */
+
   const handleTitleChange = (event) => {
     if (
       event.target.value.trim().length > 0 &&
@@ -124,7 +116,6 @@ const NewTaskView = () => {
     setFormData({ ...formData, title: event.target.value });
   };
 
-  // Comment changed
   const handleCommentChange = (event) => {
     if (event.target.value.trim() <= 16384) setCommentError(false);
     setFormData({ ...formData, comment: event.target.value });
@@ -142,7 +133,7 @@ const NewTaskView = () => {
     setFormData({ ...formData, customStartType: event.target.value });
   };
 
-  // ToDo
+  // User toggled to make task recurring
   const handleRepeatCheckChanged = (event) => {
     setFormData({ ...formData, recurring: event.target.checked });
   };
@@ -167,24 +158,54 @@ const NewTaskView = () => {
     setFormData({ ...formData, period: num });
   };
 
+  // User changed priority level slider
   const handlePriorityChange = (event) => {
     setFormData({ ...formData, priority: event.target.value });
   };
 
-  const clear = () => {
-    setFormData({
-      title: "",
-      comment: "",
-      startDate: "today",
-      customStartNum: 1,
-      customStartType: "start_days",
-      recurring: false,
-      period: 1,
-      periodType: "repeat_days",
-      priority: 2,
-    });
-  };
+  /* --------------------------------- Submit --------------------------------- */
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
+    // Title must be entered to submit the form
+    if (formData.title.trim() === "") {
+      setTitleError(true);
+      setTitleHelperText("Required");
+      return;
+    }
+
+    // Title cannot be too long
+    if (formData.title.trim().length > 500) {
+      setTitleError(true);
+      setTitleHelperText(
+        `Title character limit: ${formData.title.length} / 500`
+      );
+      return;
+    }
+
+    // Comment cannot be too long
+    if (formData.comment.length > 16384) {
+      setCommentError(true);
+      setCommentHelperText(
+        `Comment character limit: ${formData.comment.length} / 16384`
+      );
+      return;
+    }
+
+    const task = buildTaskData();
+    if (currentId) {
+      // updating a task
+      dispatch(updateTask(currentId, task));
+    } else {
+      // creating a new task
+      dispatch(createTask(task));
+    }
+    dispatch(openForm(false));
+    clear();
+  };
+  /* -------------------------------------------------------------------------- */
+
+  /* --------------------------------- Return --------------------------------- */
   return (
     <Paper className="form-backdrop">
       <form onSubmit={handleSubmit}>
@@ -300,4 +321,4 @@ const NewTaskView = () => {
     </Paper>
   );
 };
-export default NewTaskView;
+export default NewTask;

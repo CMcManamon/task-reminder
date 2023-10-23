@@ -1,3 +1,7 @@
+/* FormDialog contains a header and the form for creating or modifying a task.
+ * The Form (NewTask.js) is a child of FormDialog in NavBar.js
+ * When AddTask btn is clicked on NavBar, openForm state is set to true, and Dialog opens
+ */
 import React from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -9,6 +13,7 @@ import { openForm, setEditableTask } from "../../actions/menu";
 
 const FormDialog = (props) => {
   const open = useSelector((state) => state.menu.openForm);
+  // Form may either create a new task or edit an existing task
   const editableTask = useSelector((state) => state.menu.editableTask);
   const dispatch = useDispatch();
 
@@ -17,6 +22,7 @@ const FormDialog = (props) => {
     dispatch(setEditableTask(null));
   };
 
+  /* --------------------------------- Return --------------------------------- */
   return (
     <Dialog
       onClose={handleClose}
