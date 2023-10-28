@@ -1,6 +1,9 @@
 import * as api from "../api";
 
-// Action Creators
+// These action creator functions return async functions
+// Thunk (store middleware) intercepts and calls the function
+//    when it's passed into dispatch elsewhere in the program
+//    e.g. dispatch(createTask(task)) in NewTask.js
 export const getTasks = () => async (dispatch) => {
   try {
     const { data } = await api.fetchTasks();
