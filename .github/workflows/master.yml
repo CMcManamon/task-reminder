@@ -1,0 +1,21 @@
+name: Node.JS CI/CD
+
+on:
+  push:
+    branches: 
+      - master
+    paths:
+      - server
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to production on Render  
+        if: github.ref == 'refs/heads/master'
+        env:
+          deploy_url: ${{secrets.RENDER_DEPLOY_HOOK_URL}}
+        run: |
+          curl "$deploy_url"
