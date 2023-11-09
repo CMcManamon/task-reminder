@@ -5,7 +5,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import DoneIcon from "@mui/icons-material/Done";
-import { Button, Paper } from "@mui/material";
+import { Button, Box, Paper } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteTask, updateTask } from "../../actions/tasks";
 import { openTaskOptions } from "../../actions/menu";
@@ -47,33 +47,35 @@ const TaskOptions = () => {
   /* --------------------------------- Return --------------------------------- */
   return (
     <Paper>
-      <Button
-        size="large"
-        color="primary"
-        onClick={handleDone}
-        sx={{ flexDirection: "column" }}
-      >
-        <DoneIcon fontSize="large" />
-        Done
-      </Button>
-      <Button
-        size="large"
-        color="primary"
-        onClick={handleEdit}
-        sx={{ flexDirection: "column" }}
-      >
-        <EditNoteIcon fontSize="large" />
-        Edit
-      </Button>
-      <Button
-        size="large"
-        color="primary"
-        onClick={handleDelete}
-        sx={{ flexDirection: "column" }}
-      >
-        <DeleteIcon fontSize="large" />
-        Delete
-      </Button>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          size="large"
+          color="primary"
+          onClick={handleDone}
+          sx={{ flexDirection: "column" }}
+        >
+          <DoneIcon fontSize="large" />
+          Done
+        </Button>
+        <Button
+          size="large"
+          color="primary"
+          onClick={handleEdit}
+          sx={{ flexDirection: "column" }}
+        >
+          <EditNoteIcon fontSize="large" />
+          Edit
+        </Button>
+        <Button
+          size="large"
+          color="primary"
+          onClick={handleDelete}
+          sx={{ flexDirection: "column" }}
+        >
+          <DeleteIcon fontSize="large" />
+          Delete
+        </Button>
+      </Box>
     </Paper>
   );
 };
