@@ -5,8 +5,8 @@
  * */
 
 import { useState, useEffect } from "react";
+import "./NewTask.css";
 import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { useSelector, useDispatch } from "react-redux";
 import {
   TextField,
@@ -17,6 +17,7 @@ import {
   Box,
   MenuItem,
   Select,
+  Typography,
 } from "@mui/material";
 import { createTask, updateTask } from "../../actions/tasks";
 import { openForm } from "../../actions/menu";
@@ -207,7 +208,7 @@ const NewTask = () => {
 
   /* --------------------------------- Return --------------------------------- */
   return (
-    <Paper className="form-backdrop">
+    <Paper sx={{ m: -1, p: 1 }}>
       <form onSubmit={handleSubmit}>
         <TextField
           name="taskName"
@@ -220,39 +221,98 @@ const NewTask = () => {
           onChange={handleTitleChange}
         />
         When do you want to start?
-        <br />
-        <ToggleButtonGroup
-          color="primary"
-          value={formData.startDate}
-          exclusive
-          onChange={handleStartToggleChange}
-          aria-label="Platform"
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "auto auto auto",
+            gridTemplateRows: "auto auto",
+            justifyContent: "stretch",
+            columnGap: "6px",
+            rowGap: "6px",
+          }}
         >
-          <ToggleButton value="today">Today</ToggleButton>
-          <ToggleButton value="tomorrow">Tomorrow</ToggleButton>
-          <ToggleButton value="nextWeek">Next Week</ToggleButton>
-          <ToggleButton value="custom">Custom</ToggleButton>
-        </ToggleButtonGroup>
-        <br />
-        <Box display={formData.startDate !== "custom" ? "none" : "block"}>
-          <TextField
-            type="number"
-            name="customNumber"
-            value={formData.customStartNum}
-            onChange={handleCustomNumChange}
-            sx={{ width: 80 }}
-          />
-          <Select
-            name="selectCustomPeriod"
-            id="selectCustomPeriod"
-            value={formData.customStartType}
-            onChange={handleCustomStartChange}
+          <ToggleButton
+            className="date-button"
+            size="small"
+            color="primary"
+            value="today"
+            onChange={handleStartToggleChange}
+            selected={formData.startDate == "today"}
           >
-            <MenuItem value={"start_days"}>Days</MenuItem>
-            <MenuItem value={"start_weeks"}>Weeks</MenuItem>
-            <MenuItem value={"start_months"}>Months</MenuItem>
-            <MenuItem value={"start_years"}>Years</MenuItem>
-          </Select>
+            <Typography fontSize="0.75rem">Today</Typography>
+          </ToggleButton>
+          <ToggleButton
+            className="date-button"
+            size="small"
+            color="primary"
+            value="tomorrow"
+            onChange={handleStartToggleChange}
+            selected={formData.startDate == "tomorrow"}
+          >
+            <Typography fontSize="0.75rem">Tomorrow</Typography>
+          </ToggleButton>
+          <ToggleButton
+            className="date-button"
+            size="small"
+            color="primary"
+            value="nextWeek"
+            onChange={handleStartToggleChange}
+            selected={formData.startDate == "nextWeek"}
+          >
+            <Typography fontSize="0.75rem">Next Week</Typography>
+          </ToggleButton>
+
+          <Box
+            display="flex"
+            sx={{
+              gridColumn: "1 / 4",
+              columnGap: "6px",
+            }}
+          >
+            <ToggleButton
+              className="date-button"
+              size="small"
+              color="primary"
+              value="custom"
+              onChange={handleStartToggleChange}
+              selected={formData.startDate == "custom"}
+            >
+              <Typography fontSize="0.75rem">Custom</Typography>
+            </ToggleButton>
+
+            <TextField
+              className="number-field"
+              margin="none"
+              size="small"
+              type="number"
+              name="customNumber"
+              value={formData.customStartNum}
+              onChange={handleCustomNumChange}
+              sx={{
+                visibility:
+                  formData.startDate === "custom" ? "visible" : "hidden",
+              }}
+            />
+            <Select
+              size="small"
+              margin="none"
+              name="selectCustomPeriod"
+              id="selectCustomPeriod"
+              value={formData.customStartType}
+              onChange={handleCustomStartChange}
+              sx={{
+                padding: 0,
+                fontSize: "0.75rem",
+                visibility:
+                  formData.startDate === "custom" ? "visible" : "hidden",
+              }}
+            >
+              <MenuItem value={"start_days"}>Days</MenuItem>
+              <MenuItem value={"start_weeks"}>Weeks</MenuItem>
+              <MenuItem value={"start_months"}>Months</MenuItem>
+              <MenuItem value={"start_years"}>Years</MenuItem>
+            </Select>
+          </Box>
         </Box>
         <FormControlLabel
           value="repeat"
@@ -264,20 +324,26 @@ const NewTask = () => {
           }
           label="Repeat when done?"
           labelPlacement="start"
+          sx={{ margin: 0 }}
         />
-        <Box display={formData.recurring ? "inline" : "none"}>
+        <Box display={formData.recurring ? "flex" : "none"}>
           <TextField
+            className="number-field"
             type="number"
+            margin="none"
+            size="small"
             name="customRepeat"
             value={formData.period}
             onChange={handleperiodChange}
-            sx={{ width: 80 }}
+            sx={{ padding: 0, marginRight: "6px" }}
           />
           <Select
+            size="small"
             name="selectperiodType"
             id="selectperiodType"
             value={formData.periodType}
             onChange={handleperiodTypeChange}
+            sx={{ padding: 0, fontSize: "0.75rem" }}
           >
             <MenuItem value={"repeat_days"}>Days</MenuItem>
             <MenuItem value={"repeat_weeks"}>Weeks</MenuItem>
@@ -285,6 +351,7 @@ const NewTask = () => {
             <MenuItem value={"repeat_years"}>Years</MenuItem>
           </Select>
         </Box>
+        <br />
         <TextField
           id="comments"
           name="comments"
