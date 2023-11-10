@@ -9,14 +9,16 @@ import "./NewTask.css";
 import ToggleButton from "@mui/material/ToggleButton";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  TextField,
-  Button,
-  Paper,
-  FormControlLabel,
-  Checkbox,
   Box,
+  Button,
+  Checkbox,
+  Container,
+  FormControlLabel,
   MenuItem,
+  Paper,
   Select,
+  Slider,
+  TextField,
   Typography,
 } from "@mui/material";
 import { createTask, updateTask } from "../../actions/tasks";
@@ -364,17 +366,18 @@ const NewTask = () => {
           value={formData.comment}
           onChange={handleCommentChange}
         />
-        (Optional) Priority
-        <br />
-        <input
-          type="range"
-          name="priority"
-          min="0"
-          max="4"
-          value={formData.priority}
-          onChange={handlePriorityChange}
-        />
-        <br />
+        <Container sx={{ width: 200 }}>
+          <Typography>(Optional) Priority</Typography>
+          <Slider
+            name="priority"
+            steps={5}
+            min={0}
+            max={4}
+            value={formData.priority ?? 2}
+            onChange={handlePriorityChange}
+            valueLabelDisplay="auto"
+          />
+        </Container>
         <Button
           variant="contained"
           color="primary"
