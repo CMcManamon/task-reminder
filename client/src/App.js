@@ -1,33 +1,22 @@
-import React, { useEffect } from "react";
-import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
-import Tasks from "./components/Tasks/Tasks";
-import NewTask from "./components/NewTask/NewTask";
+import Home from "./components/Home/Home";
+import Auth from "./components/Auth/Auth";
 import { Container } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { getTasks } from "./actions/tasks";
-import FormDialog from "./components/FormDialog/FormDialog";
-import TaskOptionsDialog from "./components/TaskOptionsDialog/TaskOptionsDialog";
-import TaskOptions from "./components/TaskOptions/TaskOptions";
+import "./App.css";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTasks());
-  }, [dispatch]);
-
   return (
-    <Container maxWidth="md">
-      <NavBar></NavBar>
-      <Tasks />
-      <FormDialog>
-        <NewTask />
-      </FormDialog>
-      <TaskOptionsDialog>
-        <TaskOptions />
-      </TaskOptionsDialog>
-    </Container>
+    <BrowserRouter>
+      <Container maxWidth="md">
+        <NavBar />
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/auth" exact element={<Auth />} />
+        </Routes>
+      </Container>
+    </BrowserRouter>
   );
 }
 

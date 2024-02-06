@@ -4,10 +4,12 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-//import SettingsIcon from "@mui/icons-material/Settings";
+import Button from "@mui/material/Button";
+import Avatar from "@mui/material/Avatar";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch } from "react-redux";
 import { openForm, setEditableTask } from "../../actions/menu";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -17,40 +19,51 @@ const NavBar = () => {
     dispatch(openForm(true));
   };
 
+  const user = null;
+
   const title = "Task Reminder";
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          {/*  ToDo: Add settings
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <SettingsIcon />
-          </IconButton>          
-          */}
           <Typography
             variant="h6"
             align="left"
-            component="div"
+            component={Link}
+            to="/"
             sx={{ flexGrow: 1 }}
           >
             {title}
           </Typography>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ ml: 2 }}
-            onClick={handleClickAddTask}
-          >
-            <AddIcon />
-          </IconButton>
+          {user ? (
+            <div>
+              <Avatar alt={user.result.name} src={user.result.imageUrl}>
+                {user.result.name.charAt(0)}
+              </Avatar>
+              <Button variant="contained" color="secondary">
+                Logout
+              </Button>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ ml: 2 }}
+                onClick={handleClickAddTask}
+              >
+                <AddIcon />
+              </IconButton>
+            </div>
+          ) : (
+            <Button
+              component={Link}
+              to="/auth"
+              variant="contained"
+              color="primary"
+            >
+              Sign In
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
