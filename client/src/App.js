@@ -8,15 +8,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Container maxWidth="md">
-        <NavBar />
-        <Routes>
-          <Route path="/" exact element={<Home />} />
-          <Route path="/auth" exact element={<Auth />} />
-        </Routes>
-      </Container>
-    </BrowserRouter>
+    <GoogleOAuthProvider
+      clientId={process.env.REACT_APP_PUBLIC_GOOGLE_API_TOKEN}
+    >
+      <BrowserRouter>
+        <Container maxWidth="md">
+          <NavBar />
+          <Routes>
+            <Route path="/" exact element={<Home />} />
+            <Route path="/auth" exact element={<Auth />} />
+          </Routes>
+        </Container>
+      </BrowserRouter>
+    </GoogleOAuthProvider>
   );
 }
 

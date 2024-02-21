@@ -7,6 +7,7 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import AddIcon from "@mui/icons-material/Add";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { openForm, setEditableTask } from "../../actions/menu";
 import { Link } from "react-router-dom";
@@ -19,9 +20,13 @@ const NavBar = () => {
     dispatch(openForm(true));
   };
 
-  const user = null;
-
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const title = "Task Reminder";
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -37,8 +42,8 @@ const NavBar = () => {
           </Typography>
           {user ? (
             <div>
-              <Avatar alt={user.result.name} src={user.result.imageUrl}>
-                {user.result.name.charAt(0)}
+              <Avatar alt={user.name} src={user.picture}>
+                {user.name.charAt(0)}
               </Avatar>
               <Button variant="contained" color="secondary">
                 Logout
