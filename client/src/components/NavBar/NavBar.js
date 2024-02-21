@@ -1,4 +1,5 @@
 import * as React from "react";
+import "./NavBar.css";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -10,22 +11,30 @@ import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { openForm, setEditableTask } from "../../actions/menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
+  const title = "Task Reminder";
 
   const handleClickAddTask = () => {
     dispatch(setEditableTask(null));
     dispatch(openForm(true));
   };
 
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
-  const title = "Task Reminder";
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+    setUser(null);
+  };
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("profile")));
-  }, []);
+  }, [location]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -41,11 +50,15 @@ const NavBar = () => {
             {title}
           </Typography>
           {user ? (
-            <div>
+            <div className="profile">
               <Avatar alt={user.name} src={user.picture}>
                 {user.name.charAt(0)}
               </Avatar>
-              <Button variant="contained" color="secondary">
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
               <IconButton
