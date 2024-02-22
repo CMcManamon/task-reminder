@@ -14,9 +14,15 @@ const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.authData);
+
+  useEffect(() => {}, []);
+
   useEffect(() => {
-    if (!user) navigate("/auth");
-    else dispatch(getTasks());
+    if (!user) {
+      const storedUser = JSON.parse(localStorage.getItem("profile"));
+      if (!storedUser) navigate("/auth");
+      else dispatch({ type: "AUTH", data: storedUser });
+    } else dispatch(getTasks());
   }, [dispatch, user]);
 
   return (
