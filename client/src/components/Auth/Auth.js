@@ -1,7 +1,7 @@
 import { Avatar, Button, Paper, Typography, Container } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { GoogleLogin } from "@react-oauth/google";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 

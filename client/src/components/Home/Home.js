@@ -15,8 +15,6 @@ const Home = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.authData);
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     if (!user) {
       const storedUser = JSON.parse(localStorage.getItem("profile"));
