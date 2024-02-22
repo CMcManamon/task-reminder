@@ -11,7 +11,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { openForm, setEditableTask } from "../../actions/menu";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -40,13 +40,7 @@ const NavBar = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            variant="h6"
-            align="left"
-            component={Link}
-            to="/"
-            sx={{ flexGrow: 1 }}
-          >
+          <Typography variant="h5" align="left" sx={{ flexGrow: 1 }}>
             {title}
           </Typography>
           {user ? (
@@ -73,14 +67,7 @@ const NavBar = () => {
               </IconButton>
             </div>
           ) : (
-            <Button
-              component={Link}
-              to="/auth"
-              variant="contained"
-              color="primary"
-            >
-              Sign In
-            </Button>
+            <Typography variant="h6">Not signed in</Typography>
           )}
         </Toolbar>
       </AppBar>

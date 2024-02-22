@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTasks } from "../../actions/tasks";
 import "../../App.css";
 import { Container } from "@mui/material";
@@ -8,23 +8,32 @@ import NewTask from "../NewTask/NewTask";
 import FormDialog from "../FormDialog/FormDialog";
 import TaskOptionsDialog from "../TaskOptionsDialog/TaskOptionsDialog";
 import TaskOptions from "../TaskOptions/TaskOptions";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.authData);
   useEffect(() => {
-    dispatch(getTasks());
-  }, [dispatch]);
+    if (!user) navigate("/auth");
+    else dispatch(getTasks());
+  }, [dispatch, user]);
 
   return (
     <Container>
-      <Tasks />
-      <FormDialog>
-        <NewTask />
-      </FormDialog>
-      <TaskOptionsDialog>
-        <TaskOptions />
-      </TaskOptionsDialog>
+      {user ? (
+        <>
+          <Tasks />
+          <FormDialog>
+            <NewTask />
+          </FormDialog>
+          <TaskOptionsDialog>
+            <TaskOptions />
+          </TaskOptionsDialog>
+        </>
+      ) : (
+        <></>
+      )}
     </Container>
   );
 };

@@ -1,13 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Paper,
-  Grid,
-  Typography,
-  Container,
-  TextField,
-  Icon,
-} from "@mui/material";
+import { Avatar, Button, Paper, Typography, Container } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
@@ -17,11 +8,6 @@ import { useNavigate } from "react-router-dom";
 const Auth = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isSignup = true;
-
-  const handleSubmit = () => {};
-
-  const handleChange = () => {};
 
   const googleSuccess = async (res) => {
     const decoded = jwtDecode(res.credential);
