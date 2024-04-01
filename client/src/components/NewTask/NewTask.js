@@ -239,7 +239,7 @@ const NewTask = () => {
             color="primary"
             value="today"
             onChange={handleStartToggleChange}
-            selected={formData.startDate == "today"}
+            selected={formData.startDate.eq === "today"}
           >
             <Typography fontSize="0.75rem">Today</Typography>
           </ToggleButton>
@@ -249,7 +249,7 @@ const NewTask = () => {
             color="primary"
             value="tomorrow"
             onChange={handleStartToggleChange}
-            selected={formData.startDate == "tomorrow"}
+            selected={formData.startDate === "tomorrow"}
           >
             <Typography fontSize="0.75rem">Tomorrow</Typography>
           </ToggleButton>
@@ -259,7 +259,7 @@ const NewTask = () => {
             color="primary"
             value="nextWeek"
             onChange={handleStartToggleChange}
-            selected={formData.startDate == "nextWeek"}
+            selected={formData.startDate === "nextWeek"}
           >
             <Typography fontSize="0.75rem">Next Week</Typography>
           </ToggleButton>
@@ -277,7 +277,7 @@ const NewTask = () => {
               color="primary"
               value="custom"
               onChange={handleStartToggleChange}
-              selected={formData.startDate == "custom"}
+              selected={formData.startDate === "custom"}
             >
               <Typography fontSize="0.75rem">Custom</Typography>
             </ToggleButton>
