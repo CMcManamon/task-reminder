@@ -1,11 +1,13 @@
 import mongoose from "mongoose";
-import taskSchema from "./taskSchema.js";
 
 const userSchema = new mongoose.Schema({
   userID: String,
-  username: String,
-  password: String,
-  tasks: [taskSchema],
+  tasks: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "TaskMessage",
+    },
+  ],
 });
 
 const Users = mongoose.model("Users", userSchema);
