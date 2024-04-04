@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const taskSchema = mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   title: String,
   comment: String,
   creationDate: {
