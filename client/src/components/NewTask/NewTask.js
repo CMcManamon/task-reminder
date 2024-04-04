@@ -239,7 +239,7 @@ const NewTask = () => {
             color="primary"
             value="today"
             onChange={handleStartToggleChange}
-            selected={formData.startDate.eq === "today"}
+            selected={formData.startDate === "today"}
           >
             <Typography fontSize="0.75rem">Today</Typography>
           </ToggleButton>
