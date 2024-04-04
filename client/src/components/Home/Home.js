@@ -20,7 +20,7 @@ const Home = () => {
       const storedUser = JSON.parse(localStorage.getItem("profile"));
       if (!storedUser) navigate("/auth");
       else dispatch({ type: "AUTH", data: storedUser });
-    } else dispatch(getTasks());
+    } else dispatch(getTasks(user.id));
   }, [dispatch, user]);
 
   return (

@@ -1,10 +1,20 @@
 import mongoose from "mongoose";
 import TaskMessage from "../models/taskSchema.js";
+import User from "../models/userSchema.js";
 
 export const getTasks = async (req, res) => {
   try {
-    // ToDo: How to identify current user to pass in userID? Custom Hook?
-    const tasks = await TaskMessage.find();
+    const userID = req.query.userID;
+    let user = await User.findOne({ userID: userID });
+
+    // If user doesn't exist in DB, create user from userID
+    if (user === null) {
+      user = new User({ userID: userID, tasks: [] });
+      await user.save();
+    }
+
+    await user.populate("tasks");
+    const tasks = user.tasks;
     res.status(200).json(tasks);
   } catch (error) {
     res.status(404).json({ message: error.message });
