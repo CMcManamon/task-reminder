@@ -22,11 +22,20 @@ export const getTasks = async (req, res) => {
 };
 
 export const createTask = async (req, res) => {
-  const task = req.body;
+  const userID = req.body.userID;
+  const task = req.body.task;
 
-  const newTask = new TaskMessage(task);
   try {
+    // Query user from MongoDB
+    const user = await User.findOne({ userID: userID });
+    if (!user) throw new Error("User not found");
+    // Create a task using the TaskMessage schema
+    const newTask = new TaskMessage({ ...task, user: user._id });
     await newTask.save();
+    // Add task to user's task array
+    user.tasks.push(newTask);
+    await user.save();
+    // Return task with success code
     res.status(201).json(newTask);
   } catch (error) {
     res.status(409).json({ message: error.message });
@@ -58,18 +67,3 @@ export const deleteTask = async (req, res) => {
 
   res.json({ message: "Task deleted successfully" });
 };
-
-/*
-export const createUser = async (req, res) => {
-  const user = req.body;
-
-  const newUser = new Users(user);
-
-  try {
-    await newUser.save();
-    res.status(201).json(newUser);
-  } catch (error) {
-    res.status(409).json({ message: error.message });
-  }
-};
-*/

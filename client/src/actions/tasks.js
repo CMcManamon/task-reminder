@@ -14,9 +14,9 @@ export const getTasks = (userID) => async (dispatch) => {
   }
 };
 
-export const createTask = (task) => async (dispatch) => {
+export const createTask = (userID, task) => async (dispatch) => {
   try {
-    const { data } = await api.createTask(task);
+    const { data } = await api.createTask(userID, task);
     dispatch({ type: "CREATE", payload: data });
   } catch (error) {
     console.log(error);

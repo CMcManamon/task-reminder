@@ -46,6 +46,7 @@ const NewTask = () => {
 
   // Form can create new task or edit existing task (check for editable task)
   const currentTask = useSelector((state) => state.menu.editableTask);
+  const userID = useSelector((state) => state.auth.authData.id);
   const currentId = currentTask ? currentTask._id : null;
   const task = useSelector((state) =>
     currentId ? state.tasks.find((p) => p._id === currentId) : null
@@ -201,7 +202,7 @@ const NewTask = () => {
       dispatch(updateTask(currentId, task));
     } else {
       // creating a new task
-      dispatch(createTask(task));
+      dispatch(createTask(userID, task));
     }
     dispatch(openForm(false));
     clear();
