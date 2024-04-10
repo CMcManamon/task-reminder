@@ -63,6 +63,16 @@ export const deleteTask = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send("No task with that id");
 
+  const taskToDelete = await TaskMessage.findOne({ _id: id });
+  const user = await taskToDelete.populate("user");
+
+  // Remove task from user's task array
+  user.user.tasks = user.user.tasks.filter(
+    (task) => task.toString() != taskToDelete._id.toString()
+  );
+
+  await user.user.save();
+
   await TaskMessage.findByIdAndRemove(id);
 
   res.json({ message: "Task deleted successfully" });
