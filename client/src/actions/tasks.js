@@ -4,9 +4,9 @@ import * as api from "../api";
 // Thunk (store middleware) intercepts and calls the function
 //    when it's passed into dispatch elsewhere in the program
 //    e.g. dispatch(createTask(task)) in NewTask.js
-export const getTasks = () => async (dispatch) => {
+export const getTasks = (userID) => async (dispatch) => {
   try {
-    const { data } = await api.fetchTasks();
+    const { data } = await api.fetchTasks(userID);
     const action = { type: "FETCH_ALL", payload: data };
     dispatch(action);
   } catch (error) {
@@ -14,9 +14,9 @@ export const getTasks = () => async (dispatch) => {
   }
 };
 
-export const createTask = (task) => async (dispatch) => {
+export const createTask = (userID, task) => async (dispatch) => {
   try {
-    const { data } = await api.createTask(task);
+    const { data } = await api.createTask(userID, task);
     dispatch({ type: "CREATE", payload: data });
   } catch (error) {
     console.log(error);

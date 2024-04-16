@@ -46,6 +46,7 @@ const NewTask = () => {
 
   // Form can create new task or edit existing task (check for editable task)
   const currentTask = useSelector((state) => state.menu.editableTask);
+  const userID = useSelector((state) => state.auth.authData.id);
   const currentId = currentTask ? currentTask._id : null;
   const task = useSelector((state) =>
     currentId ? state.tasks.find((p) => p._id === currentId) : null
@@ -201,7 +202,7 @@ const NewTask = () => {
       dispatch(updateTask(currentId, task));
     } else {
       // creating a new task
-      dispatch(createTask(task));
+      dispatch(createTask(userID, task));
     }
     dispatch(openForm(false));
     clear();
@@ -239,7 +240,7 @@ const NewTask = () => {
             color="primary"
             value="today"
             onChange={handleStartToggleChange}
-            selected={formData.startDate == "today"}
+            selected={formData.startDate === "today"}
           >
             <Typography fontSize="0.75rem">Today</Typography>
           </ToggleButton>
@@ -249,7 +250,7 @@ const NewTask = () => {
             color="primary"
             value="tomorrow"
             onChange={handleStartToggleChange}
-            selected={formData.startDate == "tomorrow"}
+            selected={formData.startDate === "tomorrow"}
           >
             <Typography fontSize="0.75rem">Tomorrow</Typography>
           </ToggleButton>
@@ -259,7 +260,7 @@ const NewTask = () => {
             color="primary"
             value="nextWeek"
             onChange={handleStartToggleChange}
-            selected={formData.startDate == "nextWeek"}
+            selected={formData.startDate === "nextWeek"}
           >
             <Typography fontSize="0.75rem">Next Week</Typography>
           </ToggleButton>
@@ -277,7 +278,7 @@ const NewTask = () => {
               color="primary"
               value="custom"
               onChange={handleStartToggleChange}
-              selected={formData.startDate == "custom"}
+              selected={formData.startDate === "custom"}
             >
               <Typography fontSize="0.75rem">Custom</Typography>
             </ToggleButton>
