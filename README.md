@@ -1,5 +1,11 @@
 # task-reminder
-This is a MERN stack web application that managers users' tasks. Unlike other task managers, this app is not calendar-based. The use case for this app is tasks which have no specific deadline and/or are recurring events, for example vacuuming the house, or washing the dog, or getting a yearly furnace inspection. You will simply indicate when the task should begin (today, tomorrow, next week, etc.), how often it should recur, and optionally a priority level. The app will move overdue and immediate tasks to the top of the list, but will not spam you with notifications. When you find yourself with some free time, open the app and check if you have any tasks to do.
+Full-Stack MERN application to manage recurring tasks without strict commitments. React frontend utilizing MaterialUI library with Express/Node backend. MongoDB data storage. Google OAuth2 provides authentication to access your data across multiple devices.
+
+I built this app for personal use when I couldn't find a task manager that met my requirements.
+
+Sometimes, we have recurring tasks which do not conform to specific dates. It's not a big deal if we forget to schedule a yearly maintenance checkup after 365 days. It's OK if our weekly vacuuming doesn't occur on Thursday every time. This minimalistic task reminder is not cluttered with dozens of menus or task refinement options. No scrolling through calendars. Simply choose when to begin a task (today? tomorrow? next week?) and how often to repeat it. Tasks are automatically sorted by a formula that takes into account due date and interval. For example, a daily task which you neglected is weighted higher than a yearly task overdue by a week.
+
+The app will sort overdue and immediate tasks to the top of the list, but will not spam you with notifications. When you find yourself with some free time, open the app and check if you have any tasks to do.
 
 ![Demo](https://github.com/CMcManamon/cmcmanamon.github.io/blob/f1bb7a63301d9330780f9046cb669ecfb2106fa6/images/gallery/fulls/task-manager-demo.png)
 
@@ -16,9 +22,9 @@ This is a MERN stack web application that managers users' tasks. Unlike other ta
 * ~~App loads tasks from database when user opens app (single user)~~
 * ~~User can delete a task~~
 * ~~User can modify a task~~
-* Improve Mobile responsiveness
-* User can log in with Google OAuth
-* Deploy to web
+* ~~Improve Mobile responsiveness~~
+* ~~User can log in with Google OAuth~~
+* ~~Deploy to web~~
 
 # Getting Started with Create React App
 
